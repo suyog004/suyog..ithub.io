@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Suyog Basnet | Cybersecurity Portfolio</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-teal:   #0a1f25; 
+      --bg-accent: #1e4d58;
+      --text:      #ffffff;
+      --text-dim:  #a1b1b5;
+      --glass:     rgba(255, 255, 255, 0.05);
+      --border:    rgba(255, 255, 255, 0.15);
+      --accent:    #00ff88; 
+      --cyan:      #00e5ff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: radial-gradient(circle at center, var(--bg-accent) 0%, var(--bg-teal) 100%);
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVIGATION ── */
+    .nav-wrapper {
+      position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+      z-index: 1000; background: rgba(13, 27, 33, 0.8); backdrop-filter: blur(10px);
+      border: 1px solid var(--border); padding: 12px 40px; border-radius: 50px;
+      display: flex; gap: 30px;
+    }
+
+    .nav-link {
+      text-decoration: none; color: var(--text-dim); font-weight: 500;
+      font-size: 0.95rem; transition: 0.3s;
+    }
+
+    .nav-link:hover, .nav-link.active { color: #fff; }
+
+    /* ── HERO SECTION ── */
+    #hero {
+      height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 0 20px;
+    }
+
+    .tagline {
+      font-family: 'Share Tech Mono', monospace; font-size: 1.1rem;
+      color: var(--accent); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 15px;
+    }
+
+    .name-title {
+      font-size: clamp(4rem, 12vw, 9rem); font-weight: 800; line-height: 1;
+      margin-bottom: 30px; background: linear-gradient(to bottom, #ffffff 60%, #999999 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .roles { font-size: 1.6rem; font-weight: 500; margin-bottom: 25px; }
+    .description { color: var(--text-dim); font-size: 1.15rem; max-width: 750px; margin-bottom: 50px; }
+
+    /* ── ACTION BUTTONS ── */
+    .button-group { display: flex; gap: 25px; margin-bottom: 60px; }
+    .btn-view {
+      padding: 18px 45px; background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border); color: #fff; text-decoration: none;
+      border-radius: 15px; font-weight: 600; transition: 0.3s;
+    }
+    .btn-hire {
+      padding: 18px 45px; background: #ffffff; color: #000; text-decoration: none;
+      border-radius: 15px; font-weight: 700; transition: 0.3s;
+    }
+    .btn-hire:hover { opacity: 0.9; transform: scale(1.03); }
+
+    /* ── SOCIAL ICONS ── */
+    .social-icons { display: flex; gap: 20px; }
+    .icon-circle {
+      width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: 50%;
+      transition: 0.3s ease; overflow: hidden;
+    }
+    .icon-circle img { width: 28px; height: 28px; object-fit: contain; }
+    .github-icon img { filter: invert(1); }
+    .icon-circle:hover { border-color: #fff; transform: translateY(-5px); }
+
+    /* ── CONTENT SECTIONS ── */
+    .content-sec { padding: 120px 20px; max-width: 1100px; margin: 0 auto; }
+    
+    .sec-header { font-family: 'Share Tech Mono', monospace; color: var(--accent); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 10px; }
+    .sec-title { font-size: 3.5rem; font-weight: 700; margin-bottom: 40px; position: relative; }
+    .sec-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin-top: 15px; }
+
+    .about-container { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: start; }
+    
+    .about-text p { color: var(--text-dim); font-size: 1.15rem; margin-bottom: 30px; line-height: 1.8; }
+    .highlight-green { color: var(--accent); font-weight: 600; }
+
+    /* Terminal Styling */
+    .terminal-window {
+      background: rgba(13, 17, 23, 0.9); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      font-family: 'Share Tech Mono', monospace;
+    }
+    .terminal-header { background: #161b22; padding: 12px 15px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); }
+    .term-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .term-title { color: #8b949e; font-size: 0.8rem; margin-left: 10px; }
+    
+    .terminal-body { padding: 25px; font-size: 0.95rem; line-height: 1.6; }
+    .term-prompt { color: var(--accent); margin-right: 10px; }
+    .term-cmd { color: var(--cyan); }
+    .term-output { color: #8b949e; margin-top: 5px; margin-bottom: 20px; }
+
+    /* Project Cards */
+    .card { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); padding: 35px; border-radius: 20px; margin-bottom: 25px; transition: 0.3s; }
+    .card:hover { background: rgba(255, 255, 255, 0.07); border-color: var(--accent); }
+
+    /* Contact Details */
+    .contact-card { text-align: center; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); padding: 60px 20px; border-radius: 20px; }
+    .email-link { font-family: 'Share Tech Mono', monospace; font-size: 1.8rem; color: #fff; text-decoration: none; transition: 0.3s; word-break: break-all; }
+    .email-link:hover { color: var(--accent); text-shadow: 0 0 15px var(--accent); }
+    
+    footer { text-align: center; padding: 60px; border-top: 1px solid var(--border); font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--text-dim); }
+    footer span { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .about-container { grid-template-columns: 1fr; gap: 40px; }
+      .email-link { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav-wrapper">
+    <a href="#hero" class="nav-link">Home</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
+
+  <section id="hero">
+    <p class="tagline">Building Defenses. Breaking Barriers.</p>
+    <h1 class="name-title">Suyog Basnet</h1>
+    <div class="roles">Pentester • Developer • Ethical Hacker</div>
+    <p class="description">Cybersecurity student focused on penetration testing, Linux systems, and building secure software environments.</p>
+
+    <div class="button-group">
+      <a href="#projects" class="btn-view">View Projects</a>
+      <a href="#contact" class="btn-hire">Hire Me</a>
+    </div>
+
+    <div class="social-icons">
+      <a href="https://github.com/suyog004" target="_blank" class="icon-circle github-icon">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+      </a>
+      <a href="https://www.linkedin.com/in/suyogbasnet" target="_blank" class="icon-circle">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn">
+      </a>
+    </div>
+  </section>
+
+  <section id="about" class="content-sec about-sec">
+    <p class="sec-header">// 01. ABOUT</p>
+    <h2 class="sec-title">About Me</h2>
+    
+    <div class="about-container">
+      <div class="about-text">
+        <p>I am a <span class="highlight-green">cybersecurity and ethical hacking student</span> passionate about penetration testing, system security, Linux, and programming.</p>
+        <p>I enjoy solving CTF challenges, working on cybersecurity labs, and developing technical projects related to operating systems, networking, and security tools.</p>
+        <p>I am continuously improving my skills through hands-on practice using platforms like <span class="highlight-green">TryHackMe</span> and <span class="highlight-green">OverTheWire</span>.</p>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="term-dot" style="background:#ff5f56"></div>
+          <div class="term-dot" style="background:#ffbd2e"></div>
+          <div class="term-dot" style="background:#27c93f"></div>
+          <span class="term-title">bash — 80x24</span>
+        </div>
+        <div class="terminal-body">
+          <div><span class="term-prompt">$</span> <span class="term-cmd">whoami</span></div>
+          <div class="term-output">suyog_basnet</div>
+          <div><span class="term-prompt">$</span> <span class="term-cmd">ls interests/</span></div>
+          <div class="term-output">pen-testing/ linux-kernels/ ctf-writeups/ secure-dev/</div>
+          <div><span class="term-prompt">$</span> <span class="term-cmd">cat status.json</span></div>
+          <div class="term-output">{ "learning": "Everyday", "coffee": "Required" }</div>
+          <div><span class="term-prompt">$</span><span style="color:var(--accent); animation: blink 1s step-end infinite;"> _</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="content-sec">
+    <p class="sec-header">// 02. PROJECTS</p>
+    <h2 class="sec-title">My Works</h2>
+    <div class="card">
+      <h3 style="color:var(--accent); margin-bottom:10px;">Web Information Retrieval Tool</h3>
+      <p>Python-based application for automated searching and retrieval of web information.</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent); margin-bottom:10px;">Process Scheduling Algorithms</h3>
+      <p>C-based implementation of FCFS, SJF, and Round Robin for OS simulations.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="content-sec">
+    <p class="sec-header">// 03. CONTACT</p>
+    <h2 class="sec-title">Get In Touch</h2>
+    <div class="contact-card">
+      <p style="color:var(--text-dim); margin-bottom: 20px;">Ready to collaborate or answer any questions.</p>
+      <a href="mailto:suyogbasnet007@gmail.com" class="email-link">suyogbasnet007@gmail.com</a>
+      <div style="margin-top: 40px;">
+        <a href="mailto:suyogbasnet007@gmail.com" class="btn-hire">Send Signal</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    DESIGNED & BUILT BY <span>SUYOG BASNET</span> &copy; 2026
+  </footer>
+
+  <style>
+    @keyframes blink { 50% { opacity: 0; } }
+  </style>
+
+</body>
+</html>
