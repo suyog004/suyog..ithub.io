@@ -10,14 +10,40 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout code
+      # STEP 1: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Deploy with Docker
+      # STEP 2: Debug environment
+      - name: Debug environment
         run: |
-          echo "🚀 Starting deployment..."
+          echo "Runner directory:"
+          pwd
+
+          echo "Workspace:"
+          echo $GITHUB_WORKSPACE
+
+          echo "Files in workspace:"
+          ls -la $GITHUB_WORKSPACE
+
+          echo "Docker versions:"
+          docker --version || true
+          docker compose version || true
+
+      # STEP 3: Deploy
+      - name: Deploy application
+        run: |
+          cd $GITHUB_WORKSPACE
+
+          echo "Now in:"
+          pwd
+          ls -la
 
           docker compose down || true
           docker compose up -d --build
 
-          echo "✅ Deployment successful"
+      # STEP 4: Health check
+      - name: Health check
+        run: |
+          docker ps
+          echo "Deployment complete ✔"
