@@ -1,4 +1,4 @@
-name: Deploy to VM via SSH
+name: CI/CD Deploy
 
 on:
   push:
@@ -7,29 +7,17 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-          script: |
-            set -e
+      - name: Deploy with Docker
+        run: |
+          echo "🚀 Starting deployment..."
 
-            echo "Connecting to server..."
+          docker compose down || true
+          docker compose up -d --build
 
-            echo "Pulling latest code..."
-            git fetch origin main
-            git reset --hard origin/main
-
-            echo "Building and restarting containers..."
-            docker compose up -d --build
-
-            echo "Cleaning unused Docker images..."
-            docker image prune -f
-
-            echo "Deployment complete ✔"
+          echo "✅ Deployment successful"
